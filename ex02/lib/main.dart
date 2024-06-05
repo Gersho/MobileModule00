@@ -12,19 +12,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class CalcApp extends StatelessWidget {
   const CalcApp({super.key});
   @override
   Widget build(BuildContext context) {
-    
-    
     Size size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
         appBar: AppBar(
-          title: Text("Calculator",maxLines: 1,style:  TextStyle(
+          title: Text("Calculator",
+              maxLines: 1,
+              style: TextStyle(
                 fontSize: size.height * 0.05,
               )),
           backgroundColor: Color.fromARGB(255, 3, 126, 156),
@@ -33,52 +31,46 @@ class CalcApp extends StatelessWidget {
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [const CalcDisplay(),
-                     
-                     Container(
-                       
-                       
-                            //  color: Colors.blue,
-      height: size.height * 0.60,
-      width: size.width,
-                       
-                     child: const CalcPad())
-                    ],
+          children: [
+            const CalcDisplay(),
+            Container(
+
+                //  color: Colors.blue,
+                height: size.height * 0.60,
+                width: size.width,
+                child: const CalcPad())
+          ],
         ));
   }
 }
 
-
 class CalcButton extends StatelessWidget {
   final String btn;
-  
+
   const CalcButton({
     required this.btn,
   });
-
 
   void displayPressed(String val) {
     debugPrint(val);
   }
 
-  
-  
   @override
   Widget build(BuildContext context) {
-    
-      Size size = MediaQuery.of(context).size;
-    
+    Size size = MediaQuery.of(context).size;
 
-    
-  return  SizedBox(
-  width: size.width / 4,
-  height: (size.height * 0.60) / 6,
-  child: ElevatedButton(  
-                  onPressed: () { displayPressed(btn); },
-                  child:  Text(btn, style: TextStyle( fontSize: size.height * 0.04, )),
-                  )
-);
-
+    return SizedBox(
+        width: size.width / 4,
+        height: (size.height * 0.60) / 6,
+        child: ElevatedButton(
+          onPressed: () {
+            displayPressed(btn);
+          },
+          child: Text(btn,
+              style: TextStyle(
+                fontSize: size.height * 0.04,
+              )),
+        ));
   }
 }
 
@@ -162,10 +154,10 @@ class CalcDisplayState extends State<CalcDisplay> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           Text("0",
+          Text("0",
               maxLines: 1,
               textAlign: TextAlign.right,
-              style:  TextStyle(
+              style: TextStyle(
                 fontSize: size.height * 0.08,
               )),
           Text("0",
@@ -179,4 +171,3 @@ class CalcDisplayState extends State<CalcDisplay> {
     );
   }
 }
-
