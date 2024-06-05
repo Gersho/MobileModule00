@@ -12,19 +12,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-class CalcApp extends StatelessWidget {
+class CalcApp extends StatefulWidget {
   const CalcApp({super.key});
   @override
+  State<CalcApp> createState() => CalcAppState();
+}
+
+class CalcAppState extends State<CalcApp> {
+  String expr = "0";
+  String result = "0";
+
+  void callbacktest(String val) {
+    setState(() {
+      this.expr = val;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    
-    
     Size size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
         appBar: AppBar(
-          title: Text("Calculator",maxLines: 1,style:  TextStyle(
+          title: Text("Calculator",
+              maxLines: 1,
+              style: TextStyle(
                 fontSize: size.height * 0.05,
               )),
           backgroundColor: Color.fromARGB(255, 3, 126, 156),
@@ -33,110 +45,135 @@ class CalcApp extends StatelessWidget {
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [const CalcDisplay(),
-                     
-                     Container(
-                       
-                       
-                            //  color: Colors.blue,
-      height: size.height * 0.60,
-      width: size.width,
-                       
-                     child: const CalcPad())
-                    ],
+          children: [
+            CalcDisplay(expr: expr, result: result),
+            Container(
+                height: size.height * 0.60,
+                width: size.width,
+                child: CalcPad(callback: this.callbacktest))
+          ],
         ));
   }
 }
 
-
 class CalcButton extends StatelessWidget {
   final String btn;
-  
+  final ValueSetter<String> callback;
+
   const CalcButton({
     required this.btn,
+    required this.callback
   });
 
+  // String lastInput;
+  // String currentExpr;
 
-  void displayPressed(String val) {
-    debugPrint(val);
+  void handleInput(String val) {
+    callback(val);
+    // Parser p = Parser();
+    // debugPrint(val);
+
+    // if (val == "C") {}
+
+    // // if (val)
+
+    // if (val == "=") {
+    //   Expression exp = p.parse(val);
+    // }
+
+    // if (val == "/" || val == "*" || val == "-" || val == "+") {}
+
+    //   setState(() {
+    //   if (textDisplayed == textA) {
+    //     textDisplayed = textB;
+    //   } else {
+    //     textDisplayed = textA;
+    //   }
+    // });
   }
 
-  
-  
   @override
   Widget build(BuildContext context) {
-    
-      Size size = MediaQuery.of(context).size;
-    
+    Size size = MediaQuery.of(context).size;
 
-    
-  return  SizedBox(
-  width: size.width / 4,
-  height: (size.height * 0.60) / 6,
-  child: ElevatedButton(  
-                  onPressed: () { displayPressed(btn); },
-                  child:  Text(btn, style: TextStyle( fontSize: size.height * 0.04, )),
-                  )
-);
-
+    return SizedBox(
+        width: size.width / 4,
+        height: (size.height * 0.60) / 6,
+        child: ElevatedButton(
+          onPressed: () {
+            handleInput(btn);
+          },
+          child: Text(btn,
+              style: TextStyle(
+                fontSize: size.height * 0.04,
+              )),
+        ));
   }
 }
 
 class CalcPad extends StatelessWidget {
-  const CalcPad({super.key});
+  // ValueSetter<String>
+  final ValueSetter<String> callback;
 
-  void displayPressed(String val) {
-    debugPrint(val);
-  }
+  const CalcPad({
+    required this.callback,
+  });
+
+
+  // const CalcPad({super.key});
+
+  // void displayPressed(String val) {
+  //   debugPrint(val);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CalcButton(btn: "C"),
-            CalcButton(btn: "AC"),
-            CalcButton(btn: "F"),
-            CalcButton(btn: "€"),
+            CalcButton(btn: "C", callback: callback,),
+            CalcButton(btn: "AC", callback: callback,),
+            CalcButton(btn: "F", callback: callback,),
+            CalcButton(btn: "€", callback: callback,),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CalcButton(btn: "7"),
-            CalcButton(btn: "8"),
-            CalcButton(btn: "9"),
-            CalcButton(btn: "/"),
+            CalcButton(btn: "7", callback: callback,),
+            CalcButton(btn: "8", callback: callback,),
+            CalcButton(btn: "9", callback: callback,),
+            CalcButton(btn: "/", callback: callback,),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CalcButton(btn: "4"),
-            CalcButton(btn: "5"),
-            CalcButton(btn: "6"),
-            CalcButton(btn: "*"),
+            CalcButton(btn: "4", callback: callback,),
+            CalcButton(btn: "5", callback: callback,),
+            CalcButton(btn: "6", callback: callback,),
+            CalcButton(btn: "*", callback: callback,),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CalcButton(btn: "1"),
-            CalcButton(btn: "2"),
-            CalcButton(btn: "3"),
-            CalcButton(btn: "-"),
+            CalcButton(btn: "1", callback: callback,),
+            CalcButton(btn: "2", callback: callback,),
+            CalcButton(btn: "3", callback: callback,),
+            CalcButton(btn: "-", callback: callback,),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CalcButton(btn: "0"),
-            CalcButton(btn: "."),
-            CalcButton(btn: "="),
-            CalcButton(btn: "+"),
+            CalcButton(btn: "0", callback: callback,),
+            CalcButton(btn: ".", callback: callback,),
+            CalcButton(btn: "=", callback: callback,),
+            CalcButton(btn: "+", callback: callback,),
           ],
         ),
       ],
@@ -145,7 +182,12 @@ class CalcPad extends StatelessWidget {
 }
 
 class CalcDisplay extends StatefulWidget {
-  const CalcDisplay({super.key});
+  final String expr;
+  final String result;
+
+  const CalcDisplay({required this.expr, required this.result});
+
+  // const CalcDisplay({super.key});
   @override
   State<CalcDisplay> createState() => CalcDisplayState();
 }
@@ -162,13 +204,13 @@ class CalcDisplayState extends State<CalcDisplay> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           Text("0",
+          Text(widget.expr,
               maxLines: 1,
               textAlign: TextAlign.right,
-              style:  TextStyle(
+              style: TextStyle(
                 fontSize: size.height * 0.08,
               )),
-          Text("0",
+          Text(widget.result,
               maxLines: 1,
               textAlign: TextAlign.right,
               style: TextStyle(
@@ -179,4 +221,3 @@ class CalcDisplayState extends State<CalcDisplay> {
     );
   }
 }
-
