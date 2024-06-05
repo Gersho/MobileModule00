@@ -25,24 +25,24 @@ class CalcApp extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Calculator",maxLines: 1,style:  TextStyle(
-                fontSize: size.height * 0.1,
+                fontSize: size.height * 0.05,
               )),
           backgroundColor: Color.fromARGB(255, 3, 126, 156),
           centerTitle: true,
-          toolbarHeight: size.height * 0.1,
+          toolbarHeight: size.height * 0.08,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [CalcDisplay(),
+          children: [const CalcDisplay(),
                      
                      Container(
                        
                        
-                             color: Colors.blue,
+                            //  color: Colors.blue,
       height: size.height * 0.60,
       width: size.width,
                        
-                     child: CalcPad())
+                     child: const CalcPad())
                     ],
         ));
   }
@@ -71,11 +71,11 @@ class CalcButton extends StatelessWidget {
 
     
   return  SizedBox(
-  width: size.width / 5,
-  height: (size.height * 0.65) / 6,
+  width: size.width / 4,
+  height: (size.height * 0.60) / 6,
   child: ElevatedButton(  
                   onPressed: () { displayPressed(btn); },
-                  child:  Text(btn, style: TextStyle( fontSize: size.height * 0.06, )),
+                  child:  Text(btn, style: TextStyle( fontSize: size.height * 0.04, )),
                   )
 );
 
@@ -91,7 +91,7 @@ class CalcPad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
@@ -99,8 +99,8 @@ class CalcPad extends StatelessWidget {
           children: [
             CalcButton(btn: "C"),
             CalcButton(btn: "AC"),
-            CalcButton(btn: "@"),
-            CalcButton(btn: "/"),
+            CalcButton(btn: "F"),
+            CalcButton(btn: "€"),
           ],
         ),
         Row(
@@ -109,7 +109,7 @@ class CalcPad extends StatelessWidget {
             CalcButton(btn: "7"),
             CalcButton(btn: "8"),
             CalcButton(btn: "9"),
-            CalcButton(btn: "*"),
+            CalcButton(btn: "/"),
           ],
         ),
         Row(
@@ -118,7 +118,7 @@ class CalcPad extends StatelessWidget {
             CalcButton(btn: "4"),
             CalcButton(btn: "5"),
             CalcButton(btn: "6"),
-            CalcButton(btn: "-"),
+            CalcButton(btn: "*"),
           ],
         ),
         Row(
@@ -127,16 +127,16 @@ class CalcPad extends StatelessWidget {
             CalcButton(btn: "1"),
             CalcButton(btn: "2"),
             CalcButton(btn: "3"),
-            CalcButton(btn: "+"),
+            CalcButton(btn: "-"),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             CalcButton(btn: "0"),
-            CalcButton(btn: "00"),
             CalcButton(btn: "."),
             CalcButton(btn: "="),
+            CalcButton(btn: "+"),
           ],
         ),
       ],
@@ -156,8 +156,8 @@ class CalcDisplayState extends State<CalcDisplay> {
     Size size = MediaQuery.of(context).size;
     return Container(
       alignment: Alignment.topRight,
-      color: Colors.yellow,
-      height: size.height * 0.30,
+      // color: Colors.yellow,
+      height: size.height * 0.25,
       width: size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -166,13 +166,13 @@ class CalcDisplayState extends State<CalcDisplay> {
               maxLines: 1,
               textAlign: TextAlign.right,
               style:  TextStyle(
-                fontSize: size.height * 0.1,
+                fontSize: size.height * 0.08,
               )),
           Text("0",
               maxLines: 1,
               textAlign: TextAlign.right,
               style: TextStyle(
-                fontSize: size.height * 0.1,
+                fontSize: size.height * 0.08,
               )),
         ],
       ),
